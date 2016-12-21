@@ -1,0 +1,4 @@
+,25%,50%,75%,MaxLenght,MinLength,Possible_Values,blank_count,count,datatype,filename,max,mean,min,std,totalcount,unique
+sales,238.665,444.0,1950.0,6,5,"{3456.0: 1, 33.329999999999998: 1, 444.0: 1}",0.0,3.0,continous_variable,File2.csv,3456.0,1311.11,33.33,1868.84383946,3.0,3.0
+age,44.5,66.0,71.5,2,2,"{66.0: 1, 77.0: 1, 23.0: 1}",0.0,3.0,continous_variable,File2.csv,77.0,55.3333333333,23.0,28.5365263011,3.0,3.0
+name,,,,10,5,"{'saurav': 1, 'ghosh': 1, 'seanparker': 1}",0,3,categorical_variable,File2.csv,,,,,3,3
