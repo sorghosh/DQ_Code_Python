@@ -40,9 +40,8 @@ def DataQuality(filename,f):
        df_numeric_max.index = numericfeatures
        df_numeric_max.columns = ["MaxLenght"]       
        df_numeric = pd.merge(df_numeric,df_numeric_max,how="left",left_index = True, right_index = True)
-       possible_values = pd.DataFrame(filename[numericfeatures].apply(lambda x : x.value_counts().to_dict()).T)
-       possible_values.rename(columns = {0:"Possible_Values"},inplace = True)
-       df_numeric = pd.merge(df_numeric,possible_values, how = "left", left_index = True, right_index = True)
+       df_numeric["Possible_Values"] = "Nan"
+
            
            
 ########################################################################################################       
@@ -69,8 +68,15 @@ def DataQuality(filename,f):
        df_nonnumeric_max.index = nonnumericfeatures
        df_nonnumeric_max.columns = ["MaxLenght"]
        df_nonnumeric = pd.merge(df_nonnumeric,df_nonnumeric_max,how="left",left_index = True, right_index = True)
-       possible_values = pd.DataFrame(filename[nonnumericfeatures].apply(lambda x : x.value_counts().to_dict()).T)
-       possible_values.rename(columns = {0:"Possible_Values"},inplace = True)
+       possible_values_dict = {}
+       for c in filename[nonnumericfeatures]:
+           possible_values_dict[c] = filename[c].unique()
+        
+        
+       possible_values =  pd.DataFrame(possible_values_dict.items())
+       possible_values.index = possible_values[0]
+       possible_values.drop(0,inplace = True, axis = 1)       
+       possible_values.rename(columns = {1:"Possible_Values"},inplace = True)
        df_nonnumeric = pd.merge(df_nonnumeric,possible_values, how = "left", left_index = True, right_index = True)
         
    if len(numericfeatures) > 0 :
@@ -84,8 +90,8 @@ def DataQuality(filename,f):
    return df_final
 
 if __name__ == "__main__":
-    dir_path       = r"C:\Users\sauravghosh\Desktop\MachineLearning\DQCode\DQCode\SourceFile" 
-    outputdir_path = r"C:\Users\sauravghosh\Desktop\MachineLearning\DQCode\DQCode\Output/"
+    dir_path       = r"C:\Users\sauravghosh\Desktop\Machine_Learning\Regression\RidgeRegression\DataSet\test" 
+    outputdir_path = r"C:\Users\sauravghosh\Desktop\Machine_Learning\Regression\RidgeRegression\DataSet\output/"
     
     for root,dir_name,file_name in os.walk(dir_path):
         for f in file_name:
